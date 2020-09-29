@@ -15,7 +15,9 @@
 [Dd]ebugPublic/
 [Rr]elease/
 [Rr]eleases/
-dist/
+MMT-OMS.Vue/dist/
+MMT-OMS/LayoutImages/
+MMT-OMS/OrderPayments/
 x64/
 x86/
 bld/
