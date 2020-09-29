@@ -8,10 +8,12 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@sweetalert2/theme-material-ui": "^4.0.0",
     "axios": "^0.20.0",
     "core-js": "^3.6.5",
     "jquery": "^3.5.1",
     "lodash": "^4.17.20",
+    "sweetalert2": "^10.3.5",
     "vue": "^2.6.11",
     "vue-router": "^3.4.3",
     "vuetify": "^2.2.11"

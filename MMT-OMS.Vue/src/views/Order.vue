@@ -457,6 +457,19 @@ export default {
                 }
             }
 
+            // check if custom shade names are unchanged
+            // return if save on warning flag is not true
+            const unchangedNames = selectedTints.filter(tint => tint.CustomShadeName == tint.Name)
+                                                .map(tint => tint.Name);
+            const hasUnchangedShadeName = !!unchangedNames.length;
+            const unchangedNameHTML = unchangedNames.reduce((prev, curr) => `${prev}<strong>${curr}</strong><br>`, '');
+            if(hasUnchangedShadeName){
+                let saveOnWarning = await this.showHasUnchangedNamesWarning(unchangedNameHTML);
+                if(!saveOnWarning.isConfirmed){
+                    return Promise.resolve();
+                }
+            }
+
             const customerOrderShades = this.mapSelectedTints(selectedTints);
             selectedTints.forEach(t => formData.append(this.camelCase(t.CustomShadeName), t.File));
 
@@ -487,6 +500,29 @@ export default {
                 that.orderUniqueCode = res.data;
                 that.isSuccessSubmitOrder = true;
             });
+        },
+        async showHasUnchangedNamesWarning(unchangedNames){
+            return this.$swal.fire({
+                title: 'Unchanged Shade Name',
+                header: 'Unchanged Shade Name',
+                html: `
+                The following shades has unchanged shade name.
+                <br><br>
+                ${unchangedNames}
+                <br><br>
+                Do you wish to continue?
+                `,
+                customClass: {
+                    content: 'sa-body-text',
+                    actions: 'sa-body-text',
+                    title: 'sa-body-heading',
+                    header: 'sa-body-heading',
+                },
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes',
+                cancelButtonText: 'No'
+            })
         },
         dismissSuccessDialog(){
             this.isSuccessSubmitOrder = false;
